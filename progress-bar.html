@@ -1,0 +1,14 @@
+<head>
+  <title>progress-bar</title>
+</head>
+
+<body>
+  {{> main}}
+</body>
+
+<template name="main">
+  <p>progress: {{progress}}</p>
+  {{#each posts}}
+    <p>{{value}}</p>
+  {{/each}}
+</template>
