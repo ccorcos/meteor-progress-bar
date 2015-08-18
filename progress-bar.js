@@ -30,7 +30,7 @@ if (Meteor.isServer) {
     var collectionName = cursor._cursorDescription.collectionName
     var total = cursor.count()
     var i = 0
-    cursor.observeChanges({
+    var observerHandle = cursor.observeChanges({
       added: function (id, fields) {
         fields.subId = pub._subscriptionId
         i++
@@ -45,6 +45,10 @@ if (Meteor.isServer) {
       removed: function (id) {
         pub.removed(collectionName, id);
       }
+    })
+    pub.ready();
+    pub.onStop(function () {
+      observerHandle.stop();
     })
   })
 }
